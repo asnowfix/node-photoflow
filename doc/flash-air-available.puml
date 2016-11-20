@@ -1,0 +1,41 @@
+@startuml
+
+participant "PhotoFlow\nClient" as pfc
+participant "PhotoFlow\nWeb-Service" as pfw
+participant "PhotoFlow\nHome Application" as pfha
+participant "PhotoFlow\nMobile Application" as pfma
+participant "Picasa Web" as picasa
+participant "Flash-Air\nSDCARD" as flashair
+
+... Looking & Getting new Flash-Air photos ...
+
+-> pfha : Flash-Air available
+pfha -> flashair : list folders
+pfha <-- flashair : [folders]
+
+group for each folder
+
+  pfha -> flashair : list <folder_name> content
+  pfha <-- flashair : [items]
+
+  group if folder <flashair-id>/<folder> does not exists
+    pfha -> pfha : create <flashair-id>/<folder_name>
+  end group
+
+  group for each item
+    group if (item is not in the index || index item != item)
+      pfha -> flashair : fetch item (overwrite existing local, if any)
+      pfha <-- flashair : item data
+      note right of pfha: item transfer might be interrupted
+      pfha -> pfha : add item to index\n(draft=true,\nitem_name,\nitem_length,\nitem_checksum (if any)\n,\nflashair-id source\n& <folder_name>)
+    end group
+    pfha -> flashair : delete item
+    pfha <-- flashair : deleted
+  end grouop
+
+  pfha -> flashair : delete folder
+  pfha <-- flashair : deleted
+
+end group
+
+@enduml

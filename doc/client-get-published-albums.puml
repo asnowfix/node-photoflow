@@ -1,0 +1,32 @@
+@startuml
+
+participant "PhotoFlow\nClient" as pfc
+participant "PhotoFlow\nWeb-Service" as pfw
+participant "PhotoFlow\nHome Application" as pfha
+participant "PhotoFlow\nMobile Application" as pfma
+participant "Picasa Web" as picasa
+participant "Flash-Air\nSDCARD" as flashair
+
+... network availability test ...
+
+-> pfc : wi-fi connected
+pfc -> pfw : test captive static page
+pfc <-- pfw : OK
+pfc -> pfc : free network available
+
+... update from Internet ...
+
+pfc -> pfw : get journal
+
+group for each journal entry
+  alt is picasa entry
+  else is dropbox entry
+  else is icloud photo entry
+  else is OneDrive photo entry
+  else is flash-air entry
+  end
+end group
+
+
+
+@enduml

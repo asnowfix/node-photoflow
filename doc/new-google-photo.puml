@@ -1,0 +1,28 @@
+@startuml
+
+participant "PhotoFlow\nClient" as pfc
+participant "PhotoFlow\nWeb-Service" as pfw
+participant "PhotoFlow\nHome Application" as pfha
+participant "PhotoFlow\nMobile Application" as pfma
+participant "Picasa Web" as picasa
+participant "Flash-Air\nSDCARD" as flashair
+
+... Background update ...
+
+pfw -> picasa : list albums
+pfw -> pfw : any unknown album?
+
+group for each unknown album
+  pfw -> picasa : list album content
+  pfw -> pfw : add album to known album lists
+  pfw -> pfw : add "add every album photos" to journal
+end
+
+pfw -> pfw : any missing album?
+
+group for each missing album
+  pfw -> pfw : remove album from known album list
+  pfw -> pfw : add "remove every album photos" to journal
+end group
+
+@enduml

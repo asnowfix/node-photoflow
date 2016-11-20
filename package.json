@@ -1,0 +1,30 @@
+{
+  "name": "photoflow",
+  "version": "0.1.0",
+  "description": "Personal PhotoFlow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/asnowfix/node-photoflow.git"
+  },
+  "keywords": [
+    "photo",
+    "photostream",
+    "personal"
+  ],
+  "author": "fix.kowalski@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asnowfix/node-photoflow/issues"
+  },
+  "homepage": "https://github.com/asnowfix/node-photoflow#readme",
+  "dependencies": {
+    "bonjour": "^3.5.0"
+  },
+  "devDependencies": {
+    "standard": "^8.4.0"
+  }
+}
